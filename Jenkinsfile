@@ -16,11 +16,12 @@ pipeline {
                 git url: 'https://github.com/muthyalasaikiran/game-of-life.git',
                     branch: 'master'
             }
+        }
         stage  ('package') {
             steps {
                 sh script: 'mvn package'
             }
         }
-        }
+        
     }
 }   
