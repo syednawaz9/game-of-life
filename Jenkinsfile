@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'NODE1_172.31.30.132' }
+    agent any
     options {
         timeout(time: 30, unit: 'HOURS') 
     }
@@ -9,17 +9,24 @@ pipeline {
     tools {
         jdk 'JDK_8'
     }
+    tools{
+        maven 'maven 3.9.12'
+    }
+    parameters { 
+        choice(name: 'GOALS', 
+        choices: ['mvn validate', 'mvn test', 'mvn clean install'], 
+        description: 'Select maven goals to execute') }
 
     stages {
-        stage ('vcs') {
+        stage ('Git clone') {
             steps{ 
-                git url: 'https://github.com/muthyalasaikiran/game-of-life.git',
+                git url: 'https://github.com/syednawaz9/game-of-life.git,
                     branch: 'master'
             }
         }
-        stage  ('package') {
+        stage('MAVEN_GOALS') {
             steps {
-                sh script: 'mvn package'
+                echo "maven_goals: ${params.GOALS}"
             }
         }
         
