@@ -12,7 +12,7 @@ pipeline {
     }
     parameters { 
         choice(name: 'GOALS', 
-        choices: ['mvn clean install','mvn validate','mvn test'],  
+        choices: ['mvn validate','mvn test','mvn clean install'],  
         description: 'Select maven goals to execute') 
         }
 
